@@ -5,6 +5,8 @@ export dot = $(CURDIR)
 export sources-dir = $(dot)/sources
 export root-dir = $(dot)/root
 
+all: $(projects)
+
 $(dirs):
 	mkdir -p $@
 

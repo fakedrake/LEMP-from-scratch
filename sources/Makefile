@@ -11,12 +11,12 @@ mariadb-conf = cmake . -DCMAKE_INSTALL_PREFIX:PATH=$(root-dir) -DBUILD_CONFIG=my
 # MySQL
 mysql-url = http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.15.tar.gz
 mysql-conf = cmake . -DCMAKE_INSTALL_PREFIX:PATH=$(root-dir) -DCMAKE_BUILD_TYPE=Release
-mysql-post = $(root-dir)/bin/setup-mysql.sh
+mysql-post = $(root-dir)/bin/setup-mysql.sh "$(root-dir)" "root" "p@ssw0rd"
 
 # PHP
 php-url = http://ar2.php.net/get/php-5.6.8.tar.gz/from/this/mirror
-
-# fpm for nginx and the rest is from here: https://www.mediawiki.org/wiki/PHP_configuration
+# fpm for nginx and the rest is from here:
+#  https://www.mediawiki.org/wiki/PHP_configuration
 php-conf = ./configure \
 	--with-mysql \
 	--with-zlib \
