@@ -10,4 +10,5 @@ ${root_dir}/bin/mysqladmin -u ${root_user} password "${root_pass}"
 
 # Mediawiki stuff
 echo "Creating mediawiki database..."
+${root_dir}/bin/mysqld
 echo "create database wikidb; grant index, create, select, insert, update, delete, drop, alter, lock tables on wikidb.* to '${root_user}'@'localhost' identified by '${root_pass}'" | ${root_dir}/bin/mysql -u ${root_user} -p ${root_pass}
