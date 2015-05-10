@@ -1,0 +1,4 @@
+sources/*_src
+sources/*.tar.gz
+.dir-locals.el
+root/
