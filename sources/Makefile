@@ -1,3 +1,5 @@
+root-dir ?= $(CURDIR)/../root
+
 # NGINX
 nginx-url = http://nginx.org/download/nginx-1.9.0.tar.gz
 nginx-conf = ./configure --prefix=$(root-dir) --with-http_stub_status_module --with-http_ssl_module
@@ -9,6 +11,7 @@ mariadb-conf = cmake . -DCMAKE_INSTALL_PREFIX:PATH=$(root-dir) -DBUILD_CONFIG=my
 # MySQL
 mysql-url = http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.15.tar.gz
 mysql-conf = cmake . -DCMAKE_INSTALL_PREFIX:PATH=$(root-dir) -DCMAKE_BUILD_TYPE=Release
+mysql-post = $(root-dir)/bin/setup-mysql.sh
 
 # PHP
 php-url = http://ar2.php.net/get/php-5.6.8.tar.gz/from/this/mirror
@@ -25,6 +28,9 @@ php-conf = ./configure \
 	--enable-fpm \
 	--prefix=$(root-dir)
 
+# MediaWiki
+mediawiki-url = http://releases.wikimedia.org/mediawiki/1.24/mediawiki-1.24.2.tar.gz
+
 %.tar.gz:
 	wget $($*-url) -O $@
 
@@ -39,6 +45,11 @@ php-conf = ./configure \
 .PHONY:
 %-build: %_src/Makefile
 	$(MAKE) -j8 -C $*_src install
+	$(MAKE) $*-post
+
+.PHONY:
+%-post:
+	$($*-post)
 
 %-clean:
 	rm -rf $**
